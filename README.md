@@ -12,11 +12,11 @@ duplicated rows and missing values. No real customers are in it.
 
 | File | Purpose |
 |---|---|
-| `sql/00_sample_data.sql` | Creates the product master and generates the messy export (reproducible) |
-| `sql/01_data_audit.sql` | Read-only audit: counts every data quality problem in the raw export |
-| `sql/02_cleanup.sql` | Builds the clean table, the change log and the list of rejected rows |
-| `sql/03_verification.sql` | Read-only checks proving the cleanup is correct; all must return 0 |
-| `sql/04_reports.sql` | Reporting views: monthly KPIs, categories, products, countries, customer segments |
+| `00_sample_data.sql` | Creates the product master and generates the messy export (reproducible) |
+| `01_data_audit.sql` | Read-only audit: counts every data quality problem in the raw export |
+| `02_cleanup.sql` | Builds the clean table, the change log and the list of rejected rows |
+| `03_verification.sql` | Read-only checks proving the cleanup is correct; all must return 0 |
+| `04_reports.sql` | Reporting views: monthly KPIs, categories, products, countries, customer segments |
 | `sales_report.xlsx` | The reports and the cleanup summary as an Excel workbook with charts |
 
 ## Input
@@ -150,11 +150,11 @@ up to the same revenue total. `sales_report.xlsx` repeats this check with Excel 
 Tested on PostgreSQL 17.11. Run the files in order from any SQL client:
 
 ```
-sql/00_sample_data.sql    -- creates schema raw and 102,581 rows
-sql/01_data_audit.sql     -- read-only
-sql/02_cleanup.sql        -- creates schema clean
-sql/03_verification.sql   -- read-only, expect 11 x PASS
-sql/04_reports.sql        -- creates schema reports
+00_sample_data.sql    -- creates schema raw and 102,581 rows
+01_data_audit.sql     -- read-only
+02_cleanup.sql        -- creates schema clean
+03_verification.sql   -- read-only, expect 11 x PASS
+04_reports.sql        -- creates schema reports
 ```
 
 The generator uses a fixed random seed. Re-running `00_sample_data.sql` on the test server
